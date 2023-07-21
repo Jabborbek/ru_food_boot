@@ -7,8 +7,6 @@ env.read_env()
 # .env fayl ichidan quyidagilarni o'qiymiz
 BOT_TOKEN = env.str("BOT_TOKEN")  # Bot toekn
 ADMINS = env.list("ADMINS")  # adminlar ro'yxati
-PROVIDER_TOKEN = env.str("PROVIDER_TOKEN")
-GROUP_ID = env.str("group_id")
 
 DB_USER = env.str("DB_USER")
 DB_PASS = env.str("DB_PASS")

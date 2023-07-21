@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Category, Subcategory, Product
+from .models import Category, Subcategory, Product, User
+
+
+@admin.register(User)
+class AdminUser(admin.ModelAdmin):
+    list_display = ['id', 'telegram', 'created_at', 'updated_at']
 
 
 @admin.register(Category)

@@ -21,6 +21,17 @@ class BaseModel(Model):
         abstract = True
 
 
+class User(BaseModel, Model):
+    telegram = models.CharField(max_length=25, verbose_name='ИД телеграм')
+
+    def __str__(self):
+        return 'Success'
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
+
 class Category(BaseModel, Model):
     name = models.CharField(max_length=255, verbose_name='Название категории')
 
@@ -58,4 +69,3 @@ class Product(BaseModel, Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
-
