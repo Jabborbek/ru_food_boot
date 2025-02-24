@@ -48,9 +48,9 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    async def add_user(self, id, telegram, created_at, updated_at):
-        sql = "INSERT INTO app_user (id, telegram, created_at, updated_at) VALUES($1, $2, $3, $4) returning *"
-        return await self.execute(sql, id, telegram, created_at, updated_at, fetchrow=True)
+    async def add_user(self, lang, telegram, created_at, updated_at):
+        sql = "INSERT INTO app_user (lang, telegram, created_at, updated_at) VALUES($1, $2, $3, $4) returning *"
+        return await self.execute(sql, lang, telegram, created_at, updated_at, fetchrow=True)
 
     async def select_user(self, **kwargs):
         sql = "SELECT * FROM app_user WHERE "
@@ -79,3 +79,7 @@ class Database:
         sql = "SELECT * FROM app_product WHERE "
         sql, parameters = self.format_args(sql, parameters=kwargs)
         return await self.execute(sql, *parameters, fetchrow=True)
+
+    async def update_user_language(self, lang, telegram):
+        sql = "UPDATE app_user SET lang=$1 WHERE telegram=$2"
+        return await self.execute(sql, lang, telegram, execute=True)

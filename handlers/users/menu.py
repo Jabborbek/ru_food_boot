@@ -1,124 +1,61 @@
+import logging
+
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 from keyboards.default.main_kb import main_menu_kb
 from keyboards.inline.get_menu_keyboard import *
 from loader import dp, db, bot
+from messages.button_text import main_menu_btn_txt
+from messages.default_markup import get_markup_default_main
+from messages.funcs.get_language_func import get_language
+from messages.message_text import *
 from states.order import OrderState
 
 
-@dp.message_handler(text='🛍 Продукты', state='*')
+@dp.message_handler(text=["🛍 Mahsulotlar", '🛍 Продукты'], state='*')
 async def get_category(message: types.Message, state: FSMContext):
-    await state.finish()
+    language = await get_language(types.User.get_current().id)
     categories = await db.select_category()
     if not categories:
-        try:
-            await bot.delete_message(chat_id=message.from_user.id, message_id=message.message_id)
-        except Exception:
-            pass
-        await message.answer(
-            "К сожалению, категория еще не создана!"
-        )
+        await message.answer(category_empty_txt[language])
     else:
-        await message.answer('Пожалуйста, выберите категорию.',
-                             reply_markup=await get_category_markup(categories=categories))
+        await message.answer(category_txt[language], reply_markup=types.ReplyKeyboardRemove())
+        await message.answer(text=category_menu_txt[language],
+                             reply_markup=await get_category_markup(categories=categories, language=language))
 
         await OrderState.category.set()
 
 
 @dp.callback_query_handler(text='cat_back', state=OrderState.category)
 async def get_category(call: types.CallbackQuery, state: FSMContext):
+    print('Daa')
+    language = await get_language(types.User.get_current().id)
     try:
         await bot.delete_message(chat_id=call.from_user.id, message_id=call.message.message_id)
-    except Exception:
-        pass
-
-    await call.message.answer(
-        text='Привет и добро пожаловать!',
-        reply_markup=main_menu_kb
-    )
-
+    except Exception as e:
+        logging.error("Delete message: ", e)
+    await call.message.answer(main_menu_txt[language],
+                              reply_markup=await get_markup_default_main(btn_txt=main_menu_btn_txt,
+                                                                         language=language))
     await state.finish()
 
 
 @dp.callback_query_handler(state=OrderState.category)
 async def get_category(call: types.CallbackQuery, state: FSMContext):
-    subcategories = await db.select_subcategory_where(category_id=call.data)
-    if not subcategories:
-
-        await call.answer(
-            text='Эта категория пуста', show_alert=True
-        )
-    else:
-        await call.message.edit_text(
-            text='Выберите подкатегорию.',
-            reply_markup=await get_subcategory_markup(
-                subcategories=subcategories
-            )
-        )
-        await state.update_data(cat_id=call.data)
-        await OrderState.subcategory.set()
-
-
-@dp.callback_query_handler(text='sub_cat_back', state=OrderState.subcategory)
-async def get_category(call: types.CallbackQuery, state: FSMContext):
-    categories = await db.select_category()
-    if not categories:
-        try:
-            await bot.delete_message(chat_id=call.from_user.id, message_id=call.message.message_id)
-        except Exception:
-            pass
-        await call.message.answer(
-            "К сожалению, категория еще не создана!", reply_markup=main_menu_kb
-        )
-        await state.finish()
-    else:
-        await call.message.edit_text(
-            'Пожалуйста, выберите категорию.',
-            reply_markup=await get_category_markup(categories=categories)
-        )
-
-        await OrderState.category.set()
-
-
-@dp.callback_query_handler(state=OrderState.subcategory)
-async def get_products(call: types.CallbackQuery, state: FSMContext):
-    products = await db.select_product(subcategory_id=call.data, status=True)
+    language = await get_language(types.User.get_current().id)
+    products = await db.select_product(category_id=int(call.data), status=True)
     if not products:
-
-        await call.answer(
-            text='Эта подкатегория пуста', show_alert=True
-        )
+        await call.answer(not_products_txt[language], show_alert=True)
     else:
-        await call.message.edit_text(
-            text='Пожалуйста, выберите продукт!',
-            reply_markup=await get_product_markup(
-                products=products
-            )
-        )
-        await state.update_data(sub_id=call.data)
-        await OrderState.product.set()
-
-
-@dp.callback_query_handler(text='product_back', state=OrderState.product)
-async def get_category(call: types.CallbackQuery, state: FSMContext):
-    data = await state.get_data()
-    subcategories = await db.select_subcategory_where(category_id=data.get('cat_id'))
-    if not subcategories:
         try:
-            await bot.delete_message(chat_id=call.from_user.id, message_id=call.message.message_id)
-        except Exception:
-            pass
-
-        await call.message.answer(
-            text='Эта подкатегория пуста', reply_markup=main_menu_kb
-        )
-        await state.finish()
-    else:
-        await call.message.edit_text(
-            text='Выберите подкатегорию.',
-            reply_markup=await get_subcategory_markup(
-                subcategories=subcategories
-            )
-        )
-        await OrderState.subcategory.set()
+            await call.message.edit_text(text=products_txt[language],
+                                         reply_markup=await get_product_markup(products=products, language=language))
+            await state.update_data(category_id=call.data)
+            await OrderState.product.set()
+        except Exception as e:
+            logging.error("Edit message: ", e)
+            # await call.message.answer(main_menu_txt[language],
+            #                           reply_markup=await get_markup_default_main(btn_txt=main_menu_btn_txt,
+            #                                                                      language=language))
+            # await state.finish()
