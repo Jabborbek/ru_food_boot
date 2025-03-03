@@ -226,8 +226,8 @@ pay_success_txt = {
 }
 
 cash_success_txt = {
-    "uz": "😊 Muvaffaqiyatli yuborildi.\n\nXaridingiz uchun raxmat, tez orada sizga adminlarimiz bog'lanishadi. Quyidagi manzildan olib ketishingiz mumkin.",
-    "ru": "😊 Успешно отправлено.\n\nСпасибо за покупку, наши администраторы свяжутся с вами в ближайшее время. Забрать можно по указанному ниже адресу.",
+    "uz": "😊 Muvaffaqiyatli yuborildi.\n\nErtaga ushbu buyurtmangizni quyidagi manzildan olib ketishingiz mumkin.",
+    "ru": "😊 Успешно отправлено.\n\nВы можете забрать свой заказ завтра по следующему адресу.",
 }
 
 pay_cash_success_txt = {
