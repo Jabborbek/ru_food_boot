@@ -163,8 +163,8 @@ category_txt = {
 }
 
 category_menu_txt = {
-    "uz": "Hurmatli foydalanuvchi siz ushbu tugmalardan birini tanlagan holda o'zingizga mos mahsulotni tanlay olasiz. 👇👇👇",
-    "ru": "Уважаемый пользователь, вы можете выбрать нужный продукт, выбрав одну из этих кнопок. 👇👇👇"
+    "uz": "Hurmatli foydalanuvchi! Ushbu bot orqali siz ertangi kun uchun buyurtmalaringizni oldindan berishingiz mumkin.",
+    "ru": "Уважаемый пользователь! С помощью этого бота вы можете заранее оформить заказы на завтра."
 }
 
 category_empty_txt = {

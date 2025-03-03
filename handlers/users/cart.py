@@ -317,11 +317,11 @@ async def back_main_menu(call: types.CallbackQuery, state: FSMContext):
                         all_summ,
                         status_pay_type_txt[language][1]))
                 geolocator = Nominatim(user_agent="app_name")
-                location = geolocator.reverse(f"{41.324012}, {69.315419}")
+                location = geolocator.reverse(f"{41.304344}, {69.27961}")
                 await bot.send_venue(
                     chat_id=call.from_user.id,
-                    latitude=41.324012,
-                    longitude=69.315419,
+                    latitude=41.304344,
+                    longitude=69.27961,
                     title=address_title_text[language],
                     address=location
                 )
