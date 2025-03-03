@@ -88,9 +88,8 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
 
             else:
                 await db.update_user_phone(phone=int(message.contact.phone_number[1:13]), telegram=message.from_user.id)
-                await message.answer(success_txt[language],
-                                     reply_markup=await get_markup_default_main(language=language,
-                                                                                btn_txt=main_menu_btn_txt))
+                await message.answer(text=success_txt[language],
+                                     reply_markup=await get_markup_default(language, settings_btn_txt))
                 await state.finish()
 
         else:
@@ -103,9 +102,8 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                         break
             else:
                 await db.update_user_phone(phone=int(message.contact.phone_number[0:12]), telegram=message.from_user.id)
-                await message.answer(success_txt[language],
-                                     reply_markup=await get_markup_default_main(language=language,
-                                                                                btn_txt=main_menu_btn_txt))
+                await message.answer(text=success_txt[language],
+                                     reply_markup=await get_markup_default(language, settings_btn_txt))
                 await state.finish()
 
     elif message.content_type == 'text' and len(message.text) == 13:
@@ -119,9 +117,8 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                         break
             else:
                 await db.update_user_phone(phone=int(message.text[1:13]), telegram=message.from_user.id)
-                await message.answer(success_txt[language],
-                                     reply_markup=await get_markup_default_main(language=language,
-                                                                                btn_txt=main_menu_btn_txt))
+                await message.answer(text=success_txt[language],
+                                     reply_markup=await get_markup_default(language, settings_btn_txt))
                 await state.finish()
 
     else:
