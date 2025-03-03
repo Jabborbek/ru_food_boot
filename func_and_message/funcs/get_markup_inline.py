@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from messages.button_text import back_btn_txt
+from func_and_message.button_text import back_btn_txt
 
 
 async def get_markup_inline(language, btn_txt):
@@ -28,3 +28,4 @@ async def get_markup_inline_delete(language, btn_txt, id_list: list = None):
     markup.add(InlineKeyboardButton(text=back_btn_txt[language], callback_data='address_back'))
 
     return markup
+

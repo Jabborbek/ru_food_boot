@@ -7,6 +7,11 @@ class CategoryTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
+@register(Measure)
+class MeasureTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+
 @register(Product)
 class ProductTranslationOptions(TranslationOptions):
-    fields = ('name', 'description',)
+    fields = ('name', 'description', )

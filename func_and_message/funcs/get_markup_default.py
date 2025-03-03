@@ -2,11 +2,14 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 
 
 async def get_markup_default_main(language, btn_txt):
-    markup = ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
+    markup = ReplyKeyboardMarkup(row_width=3, resize_keyboard=True)
     text = btn_txt[language]
     for index, btn_text in enumerate(text):
         button = KeyboardButton(text=btn_text)
-        markup.insert(button)
+        if index in [1, 4]:
+            markup.add(button)
+        else:
+            markup.insert(button)
     return markup
 
 
@@ -15,7 +18,7 @@ def sync_get_markup_default_main(language, btn_txt):
     text = btn_txt[language]
     for index, btn_text in enumerate(text):
         button = KeyboardButton(text=btn_text)
-        if index in [1, 5]:
+        if index in [1, 4]:
             markup.add(button)
         else:
             markup.insert(button)

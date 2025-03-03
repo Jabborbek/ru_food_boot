@@ -34,8 +34,8 @@ succes_btn_succes_txt = {
 }
 
 main_menu_btn_txt = {
-    "uz": ["🛍 Mahsulotlar", "⚙️Sozlamalar"],
-    "ru": ["🛍 Продукты", "⚙️Настройки"]
+    "uz": ["🛍 Buyurtma berish", "📦 Buyurtmalarim", "🛒 Savatcha", "⚙️Sozlamalar"],
+    "ru": ["🛍 Начать заказ", "📦 Мои заказы", "🛒 Корзина", "⚙️Настройки"]
 }
 
 settings_btn_txt = {
@@ -79,19 +79,14 @@ back_btn_txt = {
     "ru": "🔙 Назад"
 }
 
-back_and_main_btn_txt = {
-    "uz": ["🔙 Orqaga", '🏠 Asosiy sahifa'],
-    "ru": ["🔙 Назад", "🏠 Главное меню"]
-}
-
 cart_btn_txt = {
     "uz": "🛒 Savatga qo'shish",
     "ru": "🛒 В корзину"
 }
 
 cart_clear_btn_txt = {
-    "uz": ["🗑 Savatdan mahsulotni olib tashlash", "💳 Rasmiyalshtirish"],
-    "ru": ["🗑 Удалить товар из корзины", "💳 Официальное оформление"]
+    "uz": ["🗑 Savatdan mahsulotni olib tashlash", "💳 Buyurtma berish"],
+    "ru": ["🗑 Удалить товар из корзины", "💳 Оформить заказ"]
 }
 
 dastavka_btn_txt = {

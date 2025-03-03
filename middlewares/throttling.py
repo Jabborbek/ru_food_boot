@@ -1,8 +1,23 @@
+import logging
+
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import DEFAULT_RATE_LIMIT
 from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from aiogram.utils.exceptions import Throttled
+
+from func_and_message.funcs.get_language import get_language
+from func_and_message.message_text import not_working_sunday_txt, not_working_time_not_saturday_txt
+
+LOG_FILE = 'error.log'
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
 
 
 class ThrottlingMiddleware(BaseMiddleware):
@@ -16,6 +31,8 @@ class ThrottlingMiddleware(BaseMiddleware):
         super(ThrottlingMiddleware, self).__init__()
 
     async def on_process_message(self, message: types.Message, data: dict):
+        current_time = message.date.strftime("%H:%M")
+
         handler = current_handler.get()
         dispatcher = Dispatcher.get_current()
         if handler:
@@ -27,9 +44,32 @@ class ThrottlingMiddleware(BaseMiddleware):
         try:
             await dispatcher.throttle(key, rate=limit)
         except Throttled as t:
+            print(t)
             await self.message_throttled(message, t)
+            raise CancelHandler()
+
+        if message.date.weekday() == 6:
+            await self.message_answer_user_sunday(message)
+            raise CancelHandler()
+
+        if current_time < "09:00" or current_time > "20:30":
+            await self.message_answer_user(message)
             raise CancelHandler()
 
     async def message_throttled(self, message: types.Message, throttled: Throttled):
         if throttled.exceeded_count <= 2:
             await message.reply("Too many requests!")
+
+    async def message_answer_user(self, message: types.Message):
+        language = await get_language(message.from_user.id)
+        try:
+            await message.answer(not_working_time_not_saturday_txt[language], reply_markup=types.ReplyKeyboardRemove())
+        except Exception as e:
+            logging.info(f"Not working time error: {e}")
+
+    async def message_answer_user_sunday(self, message: types.Message):
+        language = await get_language(message.from_user.id)
+        try:
+            await message.answer(not_working_sunday_txt[language], reply_markup=types.ReplyKeyboardRemove())
+        except Exception as e:
+            logging.info(f"Not working sunday error: {e}")

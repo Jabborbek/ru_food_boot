@@ -51,9 +51,14 @@ get_name_error_txt = {
     "ru": "Пожалуйста, введите ваше имя и фамилию:"
 }
 
+get_phone_txt = {
+    "uz": "Pastdagi <b>Yuborish</b> tugmasini bosing yoki telefon nomeringizni qo'lda (Masalan: +998901234567) ko'rinishda kiriting:",
+    "ru": "Нажмите кнопку <b>Отправить</b> ниже или введите свой номер телефона вручную (пример: +998901234567) в форму:"
+}
+
 get_phone_error_txt = {
-    "uz": "Bu nomerdan allachon foydalanilgan boshqa nomer kiriting (Masalan: +998912110399) ko'rinishda kiriting:",
-    "ru": "Введите другой номер, который уже используется из этого номера (например: +998912110399) в форму:"
+    "uz": "Bu nomerdan allachon foydalanilgan boshqa nomer kiriting (Masalan: +998901234567) ko'rinishda kiriting:",
+    "ru": "Введите другой номер, который уже используется из этого номера (например: +998901234567) в форму:"
 }
 
 confirm_smm_code_txt = {
@@ -177,18 +182,22 @@ retry_products_txt = {
 }
 
 not_products_txt = {
-    "uz": "Ushbu bo'limda mahsulot topilmadi, tez orada qo'shiladi.",
-    "ru": "В этом разделе не найдено ни одного товара, скоро он будет добавлен."
+    "uz": "Bu categoriya bo'yicha mahsulot topilmadi, tez orada qo'shiladi. Agar sizga juda ham zarur bo'lsa pastdagi <<✍️Fikr qoldirish>> tugmasi orqali adminga murojaat qiling 🙃",
+    "ru": "Товары в этой категории не найдены, они будут добавлены в ближайшее время. Если вам это действительно нужно, свяжитесь с администратором через кнопку <<✍️Оставить отзыв>> ниже 🙃"
 }
 
 order_product_txt = {
     "uz": "<b><i> {} </i></b>\n\n"
           "Narxi: <b><i> {} </i></b> so'm\n"
-          "Tavsif: {}\n\n",
+          "Tavsif: {}\n\n"
+          "Tayyorlash yoki yetkazib berish vaqti: <b><i> {} </i></b> <i> min </i>\n\n"
+          "Miqdorini tanlang: 👇👇👇",
 
     "ru": "<b><i> {} </i></b>\n"
           "Цена: <b><i> {} </i></b> сум\n"
           "Описание: {}\n\n"
+          "Время приготовления или доставки: <b><i> {} </i></b> <i> мин </i>\n\n"
+          "Выберите количество: 👇👇👇"
 }
 
 products_quantity_txt = {
@@ -276,10 +285,7 @@ cash_order_text = {
           "📞 Telefon: <b><i>{}</i></b>\n\n"
           "{}\n"
           "🧮 Mahsulot uchun to'lov:  <b><i>{}</i></b> so'm\n"
-          "💳 To'lov usuli: <b><i>{}</i></b>\n"
-          "🟢 Buyurtma turi: 🔹{}🔹\n\n"
-          "🧮 Umumiy xarajat:  <b><i>{}</i></b> so'm\n\n"
-          "💰 To'lov holat:: <b><i>{}</i></b>\n\n",
+          "🧮 Umumiy xarajat:  <b><i>{}</i></b> so'm\n\n",
 
     'ru': "🟠 Получен новый заказ.\n\n"
           "⏰ <b><i>[{}]</i></b>\n\n"
@@ -287,10 +293,7 @@ cash_order_text = {
           "📞 Телефон: <b><i>{}</i></b>\n\n"
           "{}\n"
           "🧮 Оплата товара: <b><i>{}</i></b> сум\n"
-          "💳 Способ оплаты: <b><i>{}</i></b>\n"
-          "🟢 Тип заказа: 🔹{}🔹\n\n"
           "🧮 Общая стоимость: <b><i>{}</i></b> сум\n\n"
-          "💰 Статус платежа:: <b><i>{}</i></b>\n\n"
 
 }
 
