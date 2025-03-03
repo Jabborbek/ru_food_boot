@@ -84,8 +84,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
-    'drf_yasg',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -101,47 +99,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-SWAGGER_SETTINGS = {
-    # default inspector classes, see advanced documentation
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_yasg.inspectors.SwaggerAutoSchema',
-    'DEFAULT_FIELD_INSPECTORS': [
-        'drf_yasg.inspectors.CamelCaseJSONFilter',
-        'drf_yasg.inspectors.ReferencingSerializerInspector',
-        'drf_yasg.inspectors.RelatedFieldInspector',
-        'drf_yasg.inspectors.ChoiceFieldInspector',
-        'drf_yasg.inspectors.FileFieldInspector',
-        'drf_yasg.inspectors.DictFieldInspector',
-        'drf_yasg.inspectors.SimpleFieldInspector',
-        'drf_yasg.inspectors.StringDefaultFieldInspector',
-    ],
-    'DEFAULT_FILTER_INSPECTORS': [
-        'drf_yasg.inspectors.CoreAPICompatInspector',
-    ],
-    'DEFAULT_PAGINATOR_INSPECTORS': [
-        'drf_yasg.inspectors.DjangoRestResponsePagination',
-        'drf_yasg.inspectors.CoreAPICompatInspector',
-    ],
-
-    'USE_SESSION_AUTH': False,  # add Django Login and Django Logout buttons, CSRF token to swagger UI page
-
-    # Swagger security definitions to include in the schema;
-    # see https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#security-definitions-object
-    'SECURITY_DEFINITIONS': {
-        'basic': {
-            'type': 'basic'
-        }
-    },
-
-    'VALIDATOR_URL': '',
-
-    'OPERATIONS_SORTER': None,
-    'TAGS_SORTER': None,
-    'DOC_EXPANSION': 'list',
-    'DEEP_LINKING': False,
-    'SHOW_EXTENSIONS': True,
-    'DEFAULT_MODEL_RENDERING': 'model',
-    'DEFAULT_MODEL_DEPTH': 3,
-}
 
 TEMPLATES = [
     {
@@ -158,8 +115,6 @@ TEMPLATES = [
         },
     },
 ]
-
-ORDER_MODEL = 'user.models.Order'
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
