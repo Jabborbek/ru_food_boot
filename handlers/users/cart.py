@@ -307,7 +307,7 @@ async def back_main_menu(call: types.CallbackQuery, state: FSMContext):
                                                  p_type_txt[language])
                 all_summ = "{:,}".format(int(sum(summa)))
                 await bot.send_message(
-                    chat_id='-1002009458747',
+                    chat_id='-1002472542227',
                     text=cash_order_text[language].format(
                         datetime.datetime.now().strftime('%Y-%m-%d, %H:%M:%S'),
                         user['fullname'],
