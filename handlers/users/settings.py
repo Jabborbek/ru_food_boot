@@ -90,7 +90,7 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                 await db.update_user_phone(phone=int(message.contact.phone_number[1:13]), telegram=message.from_user.id)
                 await message.answer(text=success_txt[language],
                                      reply_markup=await get_markup_default(language, settings_btn_txt))
-                await state.finish()
+                await Settings.open.set()
 
         else:
             all_users = await db.select_user_all()
@@ -104,7 +104,7 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                 await db.update_user_phone(phone=int(message.contact.phone_number[0:12]), telegram=message.from_user.id)
                 await message.answer(text=success_txt[language],
                                      reply_markup=await get_markup_default(language, settings_btn_txt))
-                await state.finish()
+                await Settings.open.set()
 
     elif message.content_type == 'text' and len(message.text) == 13:
         if message.text.startswith('+998'):
@@ -119,7 +119,7 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                 await db.update_user_phone(phone=int(message.text[1:13]), telegram=message.from_user.id)
                 await message.answer(text=success_txt[language],
                                      reply_markup=await get_markup_default(language, settings_btn_txt))
-                await state.finish()
+                await Settings.open.set()
 
     else:
         await message.answer(get_phone_txt[language],
