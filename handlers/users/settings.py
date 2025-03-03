@@ -76,7 +76,6 @@ async def change_lan(message: types.Message):
 @dp.message_handler(state=Settings.phone, content_types=[types.ContentType.CONTACT, types.ContentType.TEXT])
 async def reg_to_bot(message: types.Message, state: FSMContext):
     language = await get_language(user_id=message.from_user.id)
-    user = await db.select_user(telegram=message.from_user.id)
     if message.content_type == 'contact':
         if message.contact.phone_number.startswith('+'):
             all_users = await db.select_user_all()
@@ -89,10 +88,11 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
 
             else:
                 await db.update_user_phone(phone=int(message.contact.phone_number[1:13]), telegram=message.from_user.id)
-                await state.update_data(phone=message.contact.phone_number[1:13])
                 await message.answer(success_txt[language],
                                      reply_markup=await get_markup_default_main(language=language,
                                                                                 btn_txt=main_menu_btn_txt))
+                await state.finish()
+
         else:
             all_users = await db.select_user_all()
             for u in all_users:
@@ -103,10 +103,10 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                         break
             else:
                 await db.update_user_phone(phone=int(message.contact.phone_number[0:12]), telegram=message.from_user.id)
-                await state.update_data(phone=message.contact.phone_number[0:12])
                 await message.answer(success_txt[language],
                                      reply_markup=await get_markup_default_main(language=language,
                                                                                 btn_txt=main_menu_btn_txt))
+                await state.finish()
 
     elif message.content_type == 'text' and len(message.text) == 13:
         if message.text.startswith('+998'):
@@ -119,10 +119,11 @@ async def reg_to_bot(message: types.Message, state: FSMContext):
                         break
             else:
                 await db.update_user_phone(phone=int(message.text[1:13]), telegram=message.from_user.id)
-                await state.update_data(phone=message.text[1:13])
                 await message.answer(success_txt[language],
                                      reply_markup=await get_markup_default_main(language=language,
                                                                                 btn_txt=main_menu_btn_txt))
+                await state.finish()
+
     else:
         await message.answer(get_phone_txt[language],
                              reply_markup=await get_markup_default_phone(language, phone_btn_txt))
